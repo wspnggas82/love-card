@@ -53,7 +53,7 @@ function showMainMenu() {
             
             <div class="menu-grid">
                 <div class="menu-block"><div class="menu-item" onclick="startLoveProject()">💖 پەیمانی ئەشق</div><button class="copy-btn" onclick="copyLink('love')">کۆپیکردنی لینک 🔗</button></div>
-                <div class="menu-block"><div class="menu-item" onclick="startIntroProject()">🌱 یەکتر ناسین</div><button class="copy-btn" onclick="copyLink('intro')">کۆپیکردنی لینک 🔗</button></div>
+                <div class="menu-block"><div class="menu-item" onclick="startIntroProject()">🌱 یەکتر ناسین</div><button class="copy-btn" onclick="startIntroProject()">لینک 🔗</button></div>
                 <div class="menu-block"><div class="menu-item" onclick="startApologyProject()">🥺 ئاشتکردنەوە</div><button class="copy-btn" onclick="copyLink('apology')">کۆپیکردنی لینک 🔗</button></div>
                 <div class="menu-block"><div class="menu-item" onclick="startCalculatorProject()">🔮 ڕێژەی عەشق</div><button class="copy-btn" onclick="copyLink('calc')">کۆپیکردنی لینک 🔗</button></div>
                 <div class="menu-block"><div class="menu-item" onclick="startPromiseProject()">🔒 بەڵێنی ئەبەدی</div><button class="copy-btn" onclick="copyLink('promise')">کۆپیکردنی لینک 🔗</button></div>
@@ -71,7 +71,15 @@ function checkUrlParameters() {
     const name = urlParams.get('name');
     const target = urlParams.get('target');
 
-    if (page === 'promise') {
+    if (page === 'intro') {
+        const bName = urlParams.get('bname');
+        if (bName) {
+            showIntroToGirl(); // ئەگەر زانیاری کوڕەکەی پێبوو دەچێت بۆ کچەکە
+        } else {
+            startIntroProject(); // ئەگەر لینکێکی ئاسایی بوو لۆبی دروستکردن دەکاتەوە
+        }
+    }
+    else if (page === 'promise') {
         if (target === 'lover' && name) {
             showLoverLockedBox(decodeURIComponent(name));
         } else {
@@ -79,7 +87,6 @@ function checkUrlParameters() {
         }
     }
     else if (page === 'love') startLoveProject();
-    else if (page === 'intro') startIntroProject();
     else if (page === 'apology') startApologyProject();
     else if (page === 'calc') startCalculatorProject();
     else if (page === 'cert') startCertificateProject();
@@ -95,6 +102,147 @@ function copyLink(pageName) {
     }).catch(err => {
         console.error('کێشەیەک هەیە لە کۆپیکردن: ', err);
     });
+}
+
+/* ==========================================
+   پڕۆژەی دووەم: لاپەڕەی داینامیکی یەکتر ناسین
+   ========================================== */
+function startIntroProject() {
+    document.title = "دروستکردنی لۆبی یەکترناسین 🌱";
+    const dynamicContent = document.getElementById('dynamicContent');
+    dynamicContent.innerHTML = `
+        <div class="content-area" style="width: 100%; justify-content:center; align-items:center;">
+            <img src="https://i.pinimg.com/1200x/27/bd/8d/27bd8d08a98193f6f47412dd7634aa9a.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
+            <h2 class="premium-text" id="introBuildTitle" style="font-size:18px; margin: 5px 0;"></h2>
+            <p style="font-size:13px; color:#555; margin:0 0 15px 0; text-align:center;">تکایە سەرەتا زانیارییەکانی خۆت پڕبکەرەوە:</p>
+            <div style="width: 100%; max-width:280px;">
+                <input type="text" id="boyName" class="love-input" placeholder="ناوی تۆ (کوڕ) 🤵">
+                <input type="number" id="boyAge" class="love-input" placeholder="تەمەنت 🔢">
+                <input type="text" id="boyCity" class="love-input" placeholder="خەڵکی کوێیت؟ 📍">
+            </div>
+        </div>
+        <div class="btn-group-wrapper" style="margin-top:10px; width:100%; max-width:280px;">
+            <button class="btn main-btn" onclick="generateIntroLink()">دروستکردنی لینیاتی ناسینی کچ 🔗</button>
+        </div>
+    `;
+    typeWriter('introBuildTitle', '🌱 ڕێکخستنی پەیجی یەکترناسین');
+}
+
+function generateIntroLink() {
+    const name = document.getElementById('boyName').value.trim();
+    const age = document.getElementById('boyAge').value.trim();
+    const city = document.getElementById('boyCity').value.trim();
+
+    if(!name || !age || !city) { alert('تکایە هەموو خانەکان پڕبکەرەوە! ✨'); return; }
+
+    const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+    const introLink = `${baseUrl}?page=intro&bname=${encodeURIComponent(name)}&bage=${encodeURIComponent(age)}&bcity=${encodeURIComponent(city)}`;
+    
+    navigator.clipboard.writeText(introLink).then(() => {
+        alert(`لینکەکە بە سەرکەوتوویی دروستکرا و کۆپی بوو! ئێستا بینێره بۆ ئەو کچەی دەتەوێت بیناسیت 💌`);
+        goBackHome();
+    });
+}
+
+let noCount = 0;
+function showIntroToGirl() {
+    document.title = "پەیجی یەکترناسین 🌱";
+    noCount = 0;
+    const dynamicContent = document.getElementById('dynamicContent');
+    dynamicContent.innerHTML = `
+        <div class="content-area">
+            <img src="https://i.pinimg.com/1200x/27/bd/8d/27bd8d08a98193f6f47412dd7634aa9a.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
+            <h2 class="premium-text" id="introText"></h2>
+        </div>
+        <div class="btn-group-wrapper">
+            <div class="btn-group" id="introBtnGroup">
+                <button class="btn yes-btn" onclick="introResponse(true)">بەڵێ بە دڵنیاییەوە 😍</button>
+                <button class="btn no-btn" id="introNoBtn" onclick="introResponse(false)">نەخێر تاقەتم نیە 😒</button>
+            </div>
+        </div>
+    `;
+    typeWriter('introText', 'ئایا ئامادەیت کاتێکی خۆش پێکەوە بەسەر بەرین و زیاتر یەکتر بناسین؟ ⚡🌸');
+}
+
+function introResponse(isYes) {
+    const dynamicContent = document.getElementById('dynamicContent');
+    if (isYes) {
+        askGirlDetails(); 
+    } else {
+        noCount++;
+        if (noCount === 1) typeWriter('introText', 'دڵنیایت؟ تکایه پێم مەڵێ نەخێر... جارێکی تر بیر بکەرەوە! 🥺💔');
+        else if (noCount === 2) typeWriter('introText', 'هێشتا هەر دەڵێی نەخێر?! کچێ وا مەکە ڕازی ببه دەی! 😤👉');
+        else if (noCount >= 3) {
+            dynamicContent.innerHTML = `
+                <div class="content-area" style="justify-content: center; height: 100%;">
+                    <img src="https://i.pinimg.com/originals/d1/99/5d/d1995dd8f43c8c38ee8c8ddb2096d760.gif" style="width: 110px; height: 110px; margin-bottom: 10px; border-radius: 15px;">
+                    <h1 class="premium-text" id="finalLockText" style="font-size: 26px; color: #d90429; line-height: 1.6; padding: 10px;"></h1>
+                </div>
+                <div class="btn-group-wrapper">
+                    <button class="btn yes-btn" onclick="askGirlDetails()" style="width: 100%;">بەڵێ فەرموو (تەنها ئەم ڕێگایە ماوە) ❤️</button>
+                </div>
+            `;
+            typeWriter('finalLockText', 'تەواو ئیتر ناهێڵم ڕام بکەیتەوە. هەلێکم پێبدە چاو جوان! 😉🔒✨', 50);
+        }
+    }
+}
+
+function askGirlDetails() {
+    const dynamicContent = document.getElementById('dynamicContent');
+    dynamicContent.innerHTML = `
+        <div class="content-area" style="width: 100%; justify-content:center; align-items:center;">
+            <img src="https://i.pinimg.com/originals/0e/ba/e1/0ebae1a095888493cd43dff553511301.gif" style="width: 110px; height: 110px; margin-bottom: 10px; border-radius: 15px;">
+            <h2 class="premium-text" id="askGirlTitle" style="font-size:18px; margin:5px 0;"></h2>
+            <div style="width: 100%; max-width:280px; margin-top:10px;">
+                <input type="text" id="gName" class="love-input" placeholder="ناوی تۆ (کچ) 🤵‍♀️">
+                <input type="number" id="gAge" class="love-input" placeholder="تەمەنت 🔢">
+                <input type="text" id="gCity" class="love-input" placeholder="خەڵکی کوێیت؟ 📍">
+            </div>
+        </div>
+        <div class="btn-group-wrapper" style="margin-top:15px; width:100%; max-width:280px;">
+            <button class="btn main-btn" onclick="showFinalIntroCard()">تەواوکردن و ناسینی نێرەر 🌟</button>
+        </div>
+    `;
+    typeWriter('askGirlTitle', '✨ ئێستاش تۆ زانیارییەکانت بنووسە');
+}
+
+function showFinalIntroCard() {
+    const gName = document.getElementById('gName').value.trim();
+    const gAge = document.getElementById('gAge').value.trim();
+    const gCity = document.getElementById('gCity').value.trim();
+
+    if(!gName || !gAge || !gCity) { alert('تکایە هەموو خانەکان پڕبکەرەوە شازادە! 🌸'); return; }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const bName = decodeURIComponent(urlParams.get('bname') || 'نادیار');
+    const bAge = decodeURIComponent(urlParams.get('bage') || 'نادیار');
+    const bCity = decodeURIComponent(urlParams.get('bcity') || 'نادیار');
+
+    const dynamicContent = document.getElementById('dynamicContent');
+    dynamicContent.innerHTML = `
+        <div class="content-area" style="width: 100%; justify-content:center; align-items:center;">
+            <img src="https://i.pinimg.com/originals/cb/16/5d/cb165d4a8a452d2bc0e942a95922d449.gif" style="width: 100px; height: 100px; margin-bottom: 10px; border-radius: 15px;">
+            
+            <div style="background: rgba(255,255,255,0.9); border: 2px dashed #ff477e; border-radius: 20px; padding: 15px; width: 100%; max-width: 320px; box-sizing: border-box; text-align: center;">
+                <h3 style="color: #ff0054; margin: 0 0 15px 0; font-size: 18px;">🤝 سەرکەوتووانە یەکتریتان ناسی 🤝</h3>
+                
+                <div style="background: #f0f7ff; padding: 10px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #b3d7ff; text-align: right; direction: rtl;">
+                    <b style="color: #007bff; font-size:14px;">🤵 زانیاری نێرەر (کوڕ):</b>
+                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #333;">ناو: ${bName} <br> تەمەن: ${bAge} ساڵ <br> شار: ${bCity}</p>
+                </div>
+
+                <div style="background: #fff5f7; padding: 10px; border-radius: 12px; border: 1px solid #ffccd5; text-align: right; direction: rtl;">
+                    <b style="color: #ff477e; font-size:14px;">👰‍♀️ زانیاری وەرگر (کچ):</b>
+                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #333;">ناو: ${gName} <br> تەمەن: ${gAge} ساڵ <br> شار: ${gCity}</p>
+                </div>
+            </div>
+            <p id="introFinalText" style="font-size: 13px; color: #555; text-align: center; margin-top: 15px; max-width:280px; font-weight:bold;"></p>
+        </div>
+        <div class="btn-group-wrapper">
+            <button class="btn main-btn" onclick="goBackHome()">گەڕانەوە بۆ مێنیو ↩️</button>
+        </div>
+    `;
+    typeWriter('introFinalText', 'هیوادارم سەرەتایەکی خۆش و پڕ لە ڕێز و خۆشەویستی بێت بۆ پێکەوە بوونتان! ✨💍✨');
 }
 
 /* ==========================================
@@ -311,7 +459,7 @@ function startApologyProject() {
             </div>
         </div>
     `;
-    typeWriter('apologyText', 'دەزانم ڕەنگە دڵت لێم مابێت، بەڵام تۆ گەورەیی خۆت بنوێنە... لێم خۆش دەبیت؟ 🥺🌹');
+    typeWriter('apologyText', 'دەزانم ڕەنگە دڵt لێم مابێت، بەڵام تۆ گەورەیی خۆت بنوێنە... لێم خۆش دەبیت؟ 🥺🌹');
 }
 
 function apologyResponse(isForgiven) {
@@ -342,61 +490,6 @@ function apologyResponse(isForgiven) {
                 </div>
             `;
             typeWriter('apologyLockText', 'هەرچەنە زۆریش کەلەڕەقیت بەڵام هەر خۆشم دەوێی! ئیتر ڕێگای ڕاکردنت نییە، کلیک لە خوارەوە بکە و با ئاشت بینەوە 😉🔐✨', 50);
-        }
-    }
-}
-
-/* ==========================================
-   پڕۆژەی دووەم: یەکتر ناسین
-   ========================================== */
-let noCount = 0;
-function startIntroProject() {
-    document.title = "لاپەڕەی یەکترناسین 🌱";
-    noCount = 0;
-    const dynamicContent = document.getElementById('dynamicContent');
-    dynamicContent.innerHTML = `
-        <div class="content-area">
-            <img src="https://i.pinimg.com/1200x/27/bd/8d/27bd8d08a98193f6f47412dd7634aa9a.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
-            <h2 class="premium-text" id="introText"></h2>
-        </div>
-        <div class="btn-group-wrapper">
-            <div class="btn-group" id="introBtnGroup">
-                <button class="btn yes-btn" onclick="introResponse(true)">بەڵێ بە دڵنیاییەوە 😍</button>
-                <button class="btn no-btn" id="introNoBtn" onclick="introResponse(false)">نەخێر تاقەتم نیە 😒</button>
-            </div>
-        </div>
-    `;
-    typeWriter('introText', 'ئایا ئامادەیت کاتێکی خۆش پێکەوە بەسەر بەرین و زیاتر یەکتر بناسین؟ ⚡🌸');
-}
-
-function introResponse(isYes) {
-    const dynamicContent = document.getElementById('dynamicContent');
-    if (isYes) {
-        dynamicContent.innerHTML = `
-            <div class="content-area">
-                <img src="https://i.pinimg.com/736x/3b/1c/fb/3b1cfb3d0d8a6eb0ec98bc4b5d446c81.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
-                <h2 class="premium-text" id="introYesText"></h2>
-            </div>
-            <div class="btn-group-wrapper">
-                <button class="btn main-btn" onclick="goBackHome()">گەڕانەوە بۆ مێنیو ↩️</button>
-            </div>
-        `;
-        typeWriter('introYesText', 'تۆ باشترین بڕیارت دا! دەی با دەست پێبکەین نازدارەکەم... 🌸✨');
-    } else {
-        noCount++;
-        if (noCount === 1) typeWriter('introText', 'دڵنیایت؟ تکایه پێم مەڵێ نەخێر... جارێکی تر بیر بکەرەوە! 🥺💔');
-        else if (noCount === 2) typeWriter('introText', 'هێشتا هەر دەڵێی نەخێر?! کچێ وا مەکە ڕازی ببه دەی! 😤👉');
-        else if (noCount >= 3) {
-            dynamicContent.innerHTML = `
-                <div class="content-area" style="justify-content: center; height: 100%;">
-                    <img src="https://i.pinimg.com/originals/d1/99/5d/d1995dd8f43c8c38ee8c8ddb2096d760.gif" style="width: 110px; height: 110px; margin-bottom: 10px; border-radius: 15px;">
-                    <h1 class="premium-text" id="finalLockText" style="font-size: 26px; color: #d90429; line-height: 1.6; padding: 10px;"></h1>
-                </div>
-                <div class="btn-group-wrapper">
-                    <button class="btn yes-btn" onclick="introResponse(true)" style="width: 100%;">بەڵێ فەرموو (تەنها ئەم ڕێگایە ماوە) ❤️</button>
-                </div>
-            `;
-            typeWriter('finalLockText', 'تەواو ئیتر ناهێڵم ڕام بکەیتەوە. هەلێکم پێبدە چاو جوان! 😉🔒✨', 50);
         }
     }
 }
@@ -483,7 +576,7 @@ function loveResponseFirstTime(lovesBack) {
     } else {
         dynamicContent.innerHTML = `
             <div class="content-area">
-                <img src="https://i.pinimg.com/736x/3b/1c/fb/3b1cfb3d0d8a6eb0ec98bc4b5d446c81.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
+                <img src="https://i.736x/3b/1c/fb/3b1cfb3d0d8a6eb0ec98bc4b5d446c81.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
                 <h2 class="premium-text" id="typeTextFirstYes"></h2>
             </div>
             <div class="btn-group-wrapper">
