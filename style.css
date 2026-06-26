@@ -1,0 +1,410 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&family=Quicksand:wght@500;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #ffe5ec 0%, #ffb3c6 50%, #ff85a2 100%);
+    font-family: 'Noto Sans Arabic', 'Quicksand', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* باکگراوندی دڵە نەرمەکان */
+.bg-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -50px;
+    animation: floatUp 6s ease-in infinite;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(-105vh) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
+/* کارتی سەرەکی - دیزاینی شووشەیی نایاب (Neon Glow) */
+.container {
+    z-index: 10;
+    width: 90%;
+    max-width: 400px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding: 40px 30px;
+    border-radius: 35px;
+    box-shadow: 0 20px 60px rgba(255, 75, 110, 0.35), inset 0 0 20px rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.step {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* بەشی وێنە و دەق */
+.content-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.premium-text {
+    font-size: 22px;
+    color: #ff0054;
+    font-weight: bold;
+    line-height: 1.6;
+    text-align: center;
+    margin: 15px 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* مێنیوی سەرەکی - Extreme Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
+    max-height: 350px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* تەنها شێوازی جوانکردنی سکڕۆڵباری ناو مێنیو */
+.menu-grid::-webkit-scrollbar {
+    width: 4px;
+}
+.menu-grid::-webkit-scrollbar-thumb {
+    background: #ffb3c6;
+    border-radius: 10px;
+}
+
+.menu-block {
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 71, 126, 0.2);
+    border-radius: 24px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.menu-block:hover {
+    border-color: #ff477e;
+    box-shadow: 0 10px 25px rgba(255, 71, 126, 0.15);
+    transform: translateY(-2px);
+}
+
+.menu-item {
+    padding: 14px;
+    border-radius: 18px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ff0054;
+    background: white;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px dashed #ffccd5;
+}
+
+/* کاتی ماوس بردنە سەر لیستەکان */
+.menu-item:hover {
+    background: linear-gradient(45deg, #ff0054, #ff5400);
+    color: white;
+    border-style: solid;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(255, 0, 84, 0.4);
+    transform: scale(1.05);
+}
+
+/* ستایلی ئینپوتەکانی بەشەکان */
+.love-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffccd5;
+    border-radius: 15px;
+    font-size: 15px;
+    text-align: center;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    font-family: 'Noto Sans Arabic', sans-serif;
+    margin-bottom: 10px;
+}
+
+.love-input:focus {
+    border-color: #ff477e;
+}
+
+/* ستایلی دوگمەکان لە ناو بەشەکاندا */
+.btn-group-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.btn {
+    padding: 14px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(255, 75, 110, 0.2);
+}
+
+/* کاریگەری هۆڤەری دوگمەکان (Hover Glow) */
+.main-btn { background: linear-gradient(45deg, #ff477e, #ff70a6); color: white; width: 100%; }
+.yes-btn { background: linear-gradient(45deg, #00f5d4, #01bbf2); color: white; flex: 1; }
+.no-btn { background: linear-gradient(45deg, #7b2cbf, #9d4edd); color: white; flex: 1; }
+
+.btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 25px rgba(255, 75, 110, 0.4);
+}
+
+.yes-btn:hover { box-shadow: 0 15px 25px rgba(0, 245, 212, 0.4); }
+.no-btn:hover { box-shadow: 0 15px 25px rgba(123, 44, 191, 0.4); }
+
+/* دوگمەی کۆپیکردنی لێنک */
+.copy-btn {
+    background: #2b2d42;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    align-self: center;
+}
+
+.copy-btn:hover {
+    background: #ff0054;
+    box-shadow: 0 5px 15px rgba(255, 0, 84, 0.3);
+    transform: scale(1.05);
+}
+
+.cert-box {
+    border: 3px dashed #ff70a6;
+    padding: 25px;
+    border-radius: 25px;
+    background: rgba(255, 245, 247, 0.9);
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 15px rgba(255, 71, 126, 0.05);
+}
+/* ==========================================
+   چارەسەری کۆتایی: دڵی گەورەی جێگیر و بێ کێشە
+   ========================================== */
+.huge-heart-wrapper {
+    position: relative;
+    width: 260px; /* کەمێک پانتر بۆ جێگای ناوەکان */
+    height: 220px;
+    margin: 40px auto 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+.huge-heart {
+    position: absolute;
+    width: 140px; 
+    height: 140px;
+    background: linear-gradient(135deg, #ff0054, #ff477e);
+    transform: rotate(-45deg);
+    border-radius: 0;
+    box-shadow: 0 15px 40px rgba(255, 0, 84, 0.35);
+    /* ئەنیمەیشنی لێدانەکە سڕایەوە بۆ ئەوەی دڵەکە نەجووڵێت و تێکنەچێت */
+}
+
+/* دروستکردنی لای چەپ و لای ڕاستی سەرەوەی دڵەکە بە هاوسەنگی */
+.huge-heart::before,
+.huge-heart::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: inherit;
+    border-radius: 50%;
+}
+
+/* لای سەرەوەی چەپ */
+.huge-heart::before { 
+    top: -70px; 
+    left: 0; 
+}
+
+/* لای سەرەوەی ڕاست (ڕێکخراوەتەوە بۆ ئەوەی بازنەی خڕ دەرنەکەوێت) */
+.huge-heart::after { 
+    left: 70px; 
+    top: 0; 
+}
+
+/* ناوەڕۆکی ناو دڵەکە - جێگیر و گەورە */
+.heart-content {
+    position: relative;
+    z-index: 10;
+    color: white;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-names {
+    display: flex;
+    justify-content: space-between;
+    width: 240px; /* پانی گونجاو بۆ ناوەکان */
+    font-size: 18px; 
+    font-weight: bold;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* ناوی یەکەم لەسەر باڵی چەپی دڵەکە */
+.left-name {
+    transform: translateX(-10px) translateY(-15px);
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+/* ناوی دووەم لەسەر باڵی ڕاستی دڵەکە */
+.right-name {
+    transform: translateX(10px) translateY(-15px);
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+}
+
+/* ڕێژەی لەسەداکە ڕێک لە ناوەڕاستی دڵەکە */
+.heart-percent {
+    font-size: 48px; 
+    font-weight: 900;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.6);
+    margin-top: 10px;
+    transform: translateY(-5px);
+}
+/* دیزاینی شاهانەی پسوولەی دڵ */
+.luxury-cert {
+    background: linear-gradient(135deg, #fffafb 0%, #fff0f3 100%);
+    border: 3px double #ff477e;
+    border-radius: 28px;
+    padding: 25px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 15px 35px rgba(255, 71, 126, 0.15), inset 0 0 15px rgba(255,255,255,0.9);
+    position: relative;
+}
+
+.cert-ribbon {
+    font-size: 30px;
+    margin-bottom: 5px;
+    animation: floatRibbon 2s ease-in-out infinite alternate;
+}
+
+@keyframes floatRibbon {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+.luxury-cert h3 {
+    color: #d90429;
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cert-divider {
+    color: #ffb3c6;
+    font-size: 12px;
+    margin: 8px 0;
+    letter-spacing: 3px;
+}
+
+.cert-body {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.7;
+    margin: 10px 0;
+}
+
+.cert-name {
+    font-size: 22px;
+    color: #ff0054;
+    font-weight: bold;
+    margin: 15px 0;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px dashed #ffccd5;
+    display: inline-block;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.cert-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #888;
+    margin-top: 15px;
+    border-top: 1px dashed #ffccd5;
+    padding-top: 10px;
+}
