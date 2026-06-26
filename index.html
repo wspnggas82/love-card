@@ -14,6 +14,7 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
 
         /* دڵنیابوونەوە لەوەی کۆنتێنەرەکە تەواوی شاشەکە دەگرێت و جێگیرە */
@@ -35,6 +36,10 @@
             align-items: center;
             width: 100%;
             box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         /* ڕێکخستنی مێتیو بۆ ٢ ستوون بۆ ئەوەی لە یەک ڕووبەردا جێگای ببێتەوە */
@@ -116,7 +121,6 @@
             outline: none;
             box-sizing: border-box;
             transition: border-color 0.3s;
-            font-family: 'Noto Sans Arabic', sans-serif;
             margin-bottom: 8px;
         }
         
@@ -140,7 +144,32 @@
 
     <div class="container">
         <div class="card" id="mainCard">
-            <div id="dynamicContent" class="step"></div>
+            <div id="dynamicContent" class="step">
+                
+                <input type="text" class="love-input" placeholder="ناوێک بنووسە...">
+                
+                <div class="menu-grid">
+                    <div class="menu-block">
+                        <div class="menu-item">دوگمەی یەکەم</div>
+                        <button class="copy-btn">کۆپیکردن</button>
+                    </div>
+                    
+                    <div class="menu-block">
+                        <div class="menu-item">دوگمەی دووەم</div>
+                        <button class="copy-btn">کۆپیکردن</button>
+                    </div>
+
+                    <div class="menu-block">
+                        <div class="menu-item">دوگمەی سێیەم</div>
+                        <button class="copy-btn">کۆپیکردن</button>
+                    </div>
+
+                    <div class="menu-block">
+                        <div class="menu-item">دوگمەی چوارەم</div>
+                        <button class="copy-btn">کۆپیکردن</button>
+                    </div>
+                </div>
+                </div>
         </div>
     </div>
 
