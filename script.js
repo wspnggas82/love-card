@@ -53,7 +53,7 @@ function showMainMenu() {
             
             <div class="menu-grid">
                 <div class="menu-block"><div class="menu-item" onclick="startLoveProject()">💖 پەیمانی ئەشق</div><button class="copy-btn" onclick="copyLink('love')">کۆپیکردنی لینک 🔗</button></div>
-                <div class="menu-block"><div class="menu-item" onclick="startIntroProject()">🌱 یەکتر ناسین</div><button class="copy-btn" onclick="startIntroProject()">لینک 🔗</button></div>
+                <div class="menu-block"><div class="menu-item" onclick="startIntroProject()">🌱 یەکتر ناسین</div><button class="copy-btn" onclick="startIntroProject()">دروستکردنی لینک 🔗</button></div>
                 <div class="menu-block"><div class="menu-item" onclick="startApologyProject()">🥺 ئاشتکردنەوە</div><button class="copy-btn" onclick="copyLink('apology')">کۆپیکردنی لینک 🔗</button></div>
                 <div class="menu-block"><div class="menu-item" onclick="startCalculatorProject()">🔮 ڕێژەی عەشق</div><button class="copy-btn" onclick="copyLink('calc')">کۆپیکردنی لینک 🔗</button></div>
                 <div class="menu-block"><div class="menu-item" onclick="startPromiseProject()">🔒 بەڵێنی ئەبەدی</div><button class="copy-btn" onclick="copyLink('promise')">کۆپیکردنی لینک 🔗</button></div>
@@ -73,10 +73,17 @@ function checkUrlParameters() {
 
     if (page === 'intro') {
         const bName = urlParams.get('bname');
-        if (bName) {
-            showIntroToGirl(); // ئەگەر زانیاری کوڕەکەی پێبوو دەچێت بۆ کچەکە
+        const gName = urlParams.get('gname');
+        
+        // ئەگەر هەردوو زانیارییەکە لە بەستەرەکەدا هەبوو (واتە کۆتایی هاتووە و بۆ بینینەوەیە)
+        if (bName && gName) {
+            showFinalIntroCardViewOnly();
+        } 
+        // ئەگەر تەنها زانیاری کوڕەکەی پێبوو، پەیجەکە بۆ کچەکە نیشان دەدات
+        else if (bName) {
+            showIntroToGirl(); 
         } else {
-            startIntroProject(); // ئەگەر لینکێکی ئاسایی بوو لۆبی دروستکردن دەکاتەوە
+            startIntroProject(); 
         }
     }
     else if (page === 'promise') {
@@ -105,7 +112,7 @@ function copyLink(pageName) {
 }
 
 /* ==========================================
-   پڕۆژەی دووەم: لاپەڕەی داینامیکی یەکتر ناسین
+   پڕۆژەی دووەم: لاپەڕەی داینامیکی یەکتر ناسین (چاککراو)
    ========================================== */
 function startIntroProject() {
     document.title = "دروستکردنی لۆبی یەکترناسین 🌱";
@@ -114,7 +121,7 @@ function startIntroProject() {
         <div class="content-area" style="width: 100%; justify-content:center; align-items:center;">
             <img src="https://i.pinimg.com/1200x/27/bd/8d/27bd8d08a98193f6f47412dd7634aa9a.jpg" style="width: 120px; height: 120px; margin-bottom: 10px; border-radius: 15px; object-fit: cover;">
             <h2 class="premium-text" id="introBuildTitle" style="font-size:18px; margin: 5px 0;"></h2>
-            <p style="font-size:13px; color:#555; margin:0 0 15px 0; text-align:center;">تکایە سەرەتا زانیارییەکانی خۆت پڕبکەرەوە:</p>
+            <p style="font-size:13px; color:#555; margin:0 0 15px 0; text-align:center;">تکایە سەرەتا زانیارییەکانی خۆت (کوڕ) پڕبکەرەوە:</p>
             <div style="width: 100%; max-width:280px;">
                 <input type="text" id="boyName" class="love-input" placeholder="ناوی تۆ (کوڕ) 🤵">
                 <input type="number" id="boyAge" class="love-input" placeholder="تەمەنت 🔢">
@@ -122,7 +129,7 @@ function startIntroProject() {
             </div>
         </div>
         <div class="btn-group-wrapper" style="margin-top:10px; width:100%; max-width:280px;">
-            <button class="btn main-btn" onclick="generateIntroLink()">دروستکردنی لینیاتی ناسینی کچ 🔗</button>
+            <button class="btn main-btn" onclick="generateIntroLink()">دروستکردنی لینک بۆ کچەکە 🔗</button>
         </div>
     `;
     typeWriter('introBuildTitle', '🌱 ڕێکخستنی پەیجی یەکترناسین');
@@ -139,7 +146,7 @@ function generateIntroLink() {
     const introLink = `${baseUrl}?page=intro&bname=${encodeURIComponent(name)}&bage=${encodeURIComponent(age)}&bcity=${encodeURIComponent(city)}`;
     
     navigator.clipboard.writeText(introLink).then(() => {
-        alert(`لینکەکە بە سەرکەوتوویی دروستکرا و کۆپی بوو! ئێستا بینێره بۆ ئەو کچەی دەتەوێت بیناسیت 💌`);
+        alert(`لینکەکە بە سەرکەوتوویی دروستکرا و کۆپی بوو! ئێستا بینێره بۆ ئەو کچەی دەتەوێت بیناسیت تا پڕی بکاتەوە 💌`);
         goBackHome();
     });
 }
@@ -200,7 +207,7 @@ function askGirlDetails() {
             </div>
         </div>
         <div class="btn-group-wrapper" style="margin-top:15px; width:100%; max-width:280px;">
-            <button class="btn main-btn" onclick="showFinalIntroCard()">تەواوکردن و ناسینی نێرەر 🌟</button>
+            <button class="btn main-btn" onclick="showFinalIntroCard()">تەواوکردن و دروستکردنی ئەنجام 🌟</button>
         </div>
     `;
     typeWriter('askGirlTitle', '✨ ئێستاش تۆ زانیارییەکانت بنووسە');
@@ -217,6 +224,10 @@ function showFinalIntroCard() {
     const bName = decodeURIComponent(urlParams.get('bname') || 'نادیار');
     const bAge = decodeURIComponent(urlParams.get('bage') || 'نادیار');
     const bCity = decodeURIComponent(urlParams.get('bcity') || 'نادیار');
+
+    // دروستکردنی لینکێک بۆ ئەوەی بنێردرێتەوە بۆ کوڕەکە تا ئەویش زانیاری کچەکە ببینێت
+    const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+    const finalResultLink = `${baseUrl}?page=intro&bname=${encodeURIComponent(bName)}&bage=${encodeURIComponent(bAge)}&bcity=${encodeURIComponent(bCity)}&gname=${encodeURIComponent(gName)}&gage=${encodeURIComponent(gAge)}&gcity=${encodeURIComponent(gCity)}`;
 
     const dynamicContent = document.getElementById('dynamicContent');
     dynamicContent.innerHTML = `
@@ -238,11 +249,55 @@ function showFinalIntroCard() {
             </div>
             <p id="introFinalText" style="font-size: 13px; color: #555; text-align: center; margin-top: 15px; max-width:280px; font-weight:bold;"></p>
         </div>
+        <div class="btn-group-wrapper" style="width:100%; max-width:280px;">
+            <button class="btn main-btn" onclick="copyFinalResultLink('${finalResultLink}')">ناردنەوەی ئەنجام بۆ کوڕەکە 🔗</button>
+        </div>
+    `;
+    typeWriter('introFinalText', 'بۆ ئەوەی کوڕەکەش زانیارییەکانت ببینێت، کلیک لەسەر دوگمەی خوارەوە بکە و لینکەکەی بۆ بنێرەوە! ✨💍');
+}
+
+function copyFinalResultLink(link) {
+    navigator.clipboard.writeText(link).then(() => {
+        alert('لینیاتی ئەنجامەکە کۆپی کرا! بینێرەوە بۆ کوڕەکە تا زانیارییەکانت ببینێت 🌸');
+    });
+}
+
+// فەنکشنێک بۆ کاتێک کوڕەکە لینکە گەڕاوەکەی کچەکە دەکاتەوە (تەنها بۆ بینینی کارتەکە بە تەواوی)
+function showFinalIntroCardViewOnly() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const bName = decodeURIComponent(urlParams.get('bname') || 'نادیار');
+    const bAge = decodeURIComponent(urlParams.get('bage') || 'نادیار');
+    const bCity = decodeURIComponent(urlParams.get('bcity') || 'نادیار');
+    const gName = decodeURIComponent(urlParams.get('gname') || 'نادیار');
+    const gAge = decodeURIComponent(urlParams.get('gage') || 'نادیار');
+    const gCity = decodeURIComponent(urlParams.get('gcity') || 'نادیار');
+
+    document.title = "ئەنجامی یەکترناسین 🤝";
+    const dynamicContent = document.getElementById('dynamicContent');
+    dynamicContent.innerHTML = `
+        <div class="content-area" style="width: 100%; justify-content:center; align-items:center;">
+            <img src="https://i.pinimg.com/originals/0e/ba/e1/0ebae1a095888493cd43dff553511301.gif" style="width: 100px; height: 100px; margin-bottom: 10px; border-radius: 15px;">
+            
+            <div style="background: rgba(255,255,255,0.9); border: 2px dashed #007bff; border-radius: 20px; padding: 15px; width: 100%; max-width: 320px; box-sizing: border-box; text-align: center;">
+                <h3 style="color: #007bff; margin: 0 0 15px 0; font-size: 18px;">✨ پیرۆزە! کچەکە لۆبیەکەی پڕکردەوە ✨</h3>
+                
+                <div style="background: #f0f7ff; padding: 10px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #b3d7ff; text-align: right; direction: rtl;">
+                    <b style="color: #007bff; font-size:14px;">🤵 زانیاری تۆ (کوڕ):</b>
+                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #333;">ناو: ${bName} <br> تەمەن: ${bAge} ساڵ <br> شار: ${bCity}</p>
+                </div>
+
+                <div style="background: #fff5f7; padding: 10px; border-radius: 12px; border: 1px solid #ffccd5; text-align: right; direction: rtl;">
+                    <b style="color: #ff477e; font-size:14px;">👰‍♀️ زانیاری ئەو (کچ):</b>
+                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #333;">ناو: ${gName} <br> تەمەن: ${gAge} ساڵ <br> شار: ${gCity}</p>
+                </div>
+            </div>
+            <p id="viewFinalText" style="font-size: 13px; color: #555; text-align: center; margin-top: 15px; max-width:280px; font-weight:bold;"></p>
+        </div>
         <div class="btn-group-wrapper">
             <button class="btn main-btn" onclick="goBackHome()">گەڕانەوە بۆ مێنیو ↩️</button>
         </div>
     `;
-    typeWriter('introFinalText', 'هیوادارم سەرەتایەکی خۆش و پڕ لە ڕێز و خۆشەویستی بێت بۆ پێکەوە بوونتان! ✨💍✨');
+    typeWriter('viewFinalText', 'هیوادارم سەرەتایەک بێت بۆ خۆشترین هاوڕێیەتی و پێکەوەبوون! 🌟🧸');
 }
 
 /* ==========================================
@@ -629,7 +684,7 @@ function showBonusStep() {
             </div>
         </div>
     `;
-    typeWriter('typeTextBonus', 'بەڵێن بدە کە هەمیشە پێکەوە دەبین؟ 🥺💍');
+    typeWriter('typeTextBonus', 'بەڵێن بدە کە هەمیشە پێکەوە دەبین? 🥺💍');
 }
 
 function showRomanticQuestion() {
