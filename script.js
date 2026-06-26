@@ -225,7 +225,7 @@ function showFinalIntroCard() {
     const bAge = decodeURIComponent(urlParams.get('bage') || 'نادیار');
     const bCity = decodeURIComponent(urlParams.get('bcity') || 'نادیار');
 
-    // دروستکردنی لینکێک بۆ ئەوەی بنێردرێتەوە بۆ کوڕەکە تا ئەویش زانیاری کچەکە ببینێت
+    // دروستکردنی لۆبی نوێ کە زانیاری کوڕ و کچ پێکەوە کۆ دەکاتەوە
     const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
     const finalResultLink = `${baseUrl}?page=intro&bname=${encodeURIComponent(bName)}&bage=${encodeURIComponent(bAge)}&bcity=${encodeURIComponent(bCity)}&gname=${encodeURIComponent(gName)}&gage=${encodeURIComponent(gAge)}&gcity=${encodeURIComponent(gCity)}`;
 
